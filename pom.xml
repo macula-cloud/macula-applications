@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>macula-cloud</groupId>
+	<artifactId>macula-applications</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<description>Macula Microservice Applications Projects</description>
+
+	<properties>
+		<!-- Project Settings-->
+		<java.version>1.8</java.version>
+		<resource.delimiter>@</resource.delimiter>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Macula Engine -->
+		<macula-engine.version>1.0.0</macula-engine.version>
+		<!-- Macula Plugins -->
+		<macula-plugins.version>1.0.0</macula-plugins.version>
+		<!-- Macula Applications -->
+		<macula-applications.version>1.0.0</macula-applications.version>
+	</properties>
+
+	<licenses>
+		<license>
+			<name>The MIT License</name>
+			<url>http://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/macula-cloud/macula-applications</url>
+		<connection> scm:git:git://github.com/macula-cloud/macula-applications.git</connection>
+		<developerConnection>scm:git:ssh://github.com/macula-cloud/macula-applications.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>macula-applications</id>
+			<name>Jokeway</name>
+			<email>jokeway@gmail.com</email>
+			<timezone>+8</timezone>
+		</developer>
+	</developers>
+
+	<modules>
+		<module>macula-application-admin</module>
+		<module>macula-application-gateway</module>
+		<module>macula-application-oauth2</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>macula-engine-assistant</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Macula Extension Packages-->
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-engine</artifactId>
+				<version>${macula-engine.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>macula-cloud</groupId>
+				<artifactId>macula-plugins</artifactId>
+				<version>${macula-plugins.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

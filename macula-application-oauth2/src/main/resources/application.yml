@@ -1,0 +1,20 @@
+spring:
+   mvc:
+      static-path-pattern: /static/** 
+   redis:
+      hosts: ${SPRING_REDIS_HOSTS}
+      host: ${SPRING_REDIS_HOST}
+      password: ${SPRING_REDIS_PASSWORD}
+      database: ${SPRING_REDIS_DATABASE}
+
+justauth:
+  enabled: true
+  type:
+    GITEE:
+      client-id: aebee159f70908a849b80d815410833c93e24518b4b8d04a1df55bb2c93dc85b
+      client-secret: fb82c3ef56ba32d168e9870611a24fcbeb242c5d1f42c63e71fe3ac20268dc78
+      redirect-uri: http://localhost:8080/login/gitee
+    GITHUB:
+      client-id: abda4e606d5c55084eb1
+      client-secret: 3d53b0f8005438fe38c540afcc4644552dcb2690
+      redirect-uri: http://localhost:8080/login/github

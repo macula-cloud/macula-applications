@@ -1,0 +1,37 @@
+logging:
+   pattern:
+      file: '%d %file:%line %p - %m%n'
+      console: '%d %file:%line %p - %m%n'
+   level:
+      ROOT: DEBUG
+eureka:
+   client:
+      service-url:
+         defaultZone: ${EUREKA_SERVER:http://macula:macula2019@localhost:8761/eureka}
+   instance:
+      prefer-ip-address: true
+server:
+   port: ${SERVER_PORT:8060}
+   servlet:
+      session:
+         cookie:
+            name: OAUTH2
+spring:
+   application:
+      name: macula-cloud-oauth2
+macula:
+   cloud:
+      application:
+         group: scmp
+         name: ${spring.application.name}
+      security:
+         login-path: /login
+         oauth2-login: false
+management:
+   endpoint:
+      health:
+         show-details: ALWAYS
+   endpoints:
+      web:
+         exposure:
+            include: '*'

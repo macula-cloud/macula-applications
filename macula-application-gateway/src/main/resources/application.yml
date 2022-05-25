@@ -1,0 +1,18 @@
+spring:
+   redis:
+      hosts: ${SPRING_REDIS_HOSTS}
+      host: ${SPRING_REDIS_HOST}
+      password: ${SPRING_REDIS_PASSWORD}
+      database: ${SPRING_REDIS_DATABASE}
+   cloud:
+      gateway:
+         httpclient:
+            ssl:
+               use-insecure-trust-manager: true
+         discovery:
+            locator:
+               enabled: ${SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_ENABLED:true}
+               lower-case-service-id: true
+      loadbalancer:
+         retry:
+            enabled: true

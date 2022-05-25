@@ -1,0 +1,44 @@
+image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.10.1
+
+services:
+  - docker:dind
+
+variables:
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -Dmaven.test.skip=true"
+  DOCKER_HOST: "tcp://docker:2375"
+  DOCKER_TLS_CERTDIR: ""
+
+stages:
+  #  - build
+   - release
+
+# build-branches:
+#   stage: build
+#   script:
+#   - mvn clean test org.jacoco:jacoco-maven-plugin:prepare-agent ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
+#   only:
+#   - branches
+
+# build-main:
+#   stage: build
+#   script:
+#   - mvn clean test org.jacoco:jacoco-maven-plugin:prepare-agent ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
+#   only:
+#     refs:
+#     - master
+#     - tags
+#     - /^release-.*$/
+#     - /^hotfix-.*$/
+
+release-main:
+  stage: release
+  script:
+  - docker login -u $DOCKER_USER -p $DOCKER_PWD $DOCKER_REGISTRY
+  - mvn clean package dockerfile:build dockerfile:push ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
+  only:
+    refs:
+    - master
+    - tags
+    - /^release-.*$/
+    - /^hotfix-.*$/

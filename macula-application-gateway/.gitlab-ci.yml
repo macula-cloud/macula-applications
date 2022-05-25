@@ -1,0 +1,42 @@
+image: registry.cn-shanghai.aliyuncs.com/c7n/cibase:0.10.1
+
+variables:
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -Dmaven.test.skip=true"
+
+stages:
+   - build
+   - release
+
+build-branches:
+  stage: build
+  script:
+  - mvn clean test package org.jacoco:jacoco-maven-plugin:prepare-agent ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
+  only:
+  - branches
+  except:
+  - master
+  - tags
+  - /^release-.*$/
+  - /^hotfix-.*$/
+
+build-main:
+  stage: build
+  script:
+  - mvn clean test package org.jacoco:jacoco-maven-plugin:prepare-agent ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
+  only:
+    refs:
+    - master
+    - tags
+    - /^release-.*$/
+    - /^hotfix-.*$/
+
+release-main:
+  stage: release
+  script:
+  - mvn clean package deploy dockerfile:build dockerfile:push ${MAVEN_CLI_OPTS} ${MAVEN_OPTS}
+  only:
+  - master
+  - tags
+  - /^release-.*$/
+  - /^hotfix-.*$/
